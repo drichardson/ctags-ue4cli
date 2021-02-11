@@ -50,3 +50,6 @@ def update(manager, argv):
             print(f'Will not generate engine tags because {engine_tags_file} exists.')
 
     project(manager, argv)
+
+def get_engine_path(manager, argv):
+    print(engine_tags(manager, argv))

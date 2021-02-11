@@ -21,7 +21,11 @@ def main(manager, args):
         'update': {
             'function': ctags.update,
             'description': 'Generate project tags and generate engine tags if it does not exist.'
-        }
+        },
+        'engine-path': {
+            'function': ctags.get_engine_path,
+            'description': 'Get the engine tags path.'
+        },
     }
 
     # Determine if a subcommand has been specified
