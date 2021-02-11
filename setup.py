@@ -7,7 +7,7 @@ with open(abspath(join(dirname(__file__), 'README.md')), 'rb') as readmeFile:
 
 setup(
     name='ctags-ue4cli',
-    version='0.0.1',
+    version='0.0.2',
     description='Generate tags file for Unreal Engine projects using Universal Ctags',
     long_description=__readme__,
     long_description_content_type='text/markdown',
@@ -26,7 +26,7 @@ setup(
         'ctags_ue4cli.commands'
     ],
     zip_safe=False,
-    python_requires='>=3.8',
+    python_requires='>=3.7',
     install_requires=[
         'setuptools',
         'ue4cli>=0.0.51'
