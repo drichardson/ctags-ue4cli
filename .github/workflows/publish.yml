@@ -26,7 +26,8 @@ jobs:
       run: |
         SETUP_PY_VERSION=$(python3 setup.py --version)
         TAG_VERSION=${GITHUB_REF#*tags/v}
-        echo $SETUP_PY_VERSION to $TAG_VERSION from $GITHUB_REF
+        echo Extracted tag version $TAG_VERSION from ref $GITHUB_REF.
+        echo Comparing setup.py $SETUP_PY_VERSION to tag $TAG_VERSION.
         if [[ $SETUP_PY_VERSION != $TAG_VERSION ]]; then
           echo setup.py version does not match version tag.
           echo setup.py version tag should have the format 0.0.1.
