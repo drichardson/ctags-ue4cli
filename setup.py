@@ -5,14 +5,9 @@ from setuptools import setup
 with open(abspath(join(dirname(__file__), 'README.md')), 'rb') as readmeFile:
     __readme__ = readmeFile.read().decode('utf-8')
 
-# Read the version number from version.py
-with open(abspath(join(dirname(__file__), 'ctags_ue4cli', 'version.py'))) as versionFile:
-    __version__ = versionFile.read().strip().replace(
-        '__version__ = ', '').replace("'", '')
-
 setup(
     name='ctags-ue4cli',
-    version=__version__,
+    version='0.0.1',
     description='Generate tags file for Unreal Engine projects using Universal Ctags',
     long_description=__readme__,
     long_description_content_type='text/markdown',
@@ -26,13 +21,12 @@ setup(
     url='http://github.com/drichardson/ctags-ue4cli',
     author='Doug Richardson',
     author_email='doug@rekt.email',
-    license='MIT',
     packages=[
         'ctags_ue4cli',
         'ctags_ue4cli.commands'
     ],
     zip_safe=False,
-    python_requires='>=3.5',
+    python_requires='>=3.8',
     install_requires=[
         'setuptools',
         'ue4cli>=0.0.51'
