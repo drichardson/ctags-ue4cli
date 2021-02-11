@@ -6,10 +6,6 @@ def main(manager, args):
 
     # Our supported subcommands
     SUBCOMMANDS = {
-        'update': {
-            'function': ctags.update,
-            'description': 'Generate project tags and generate UE4 engine tags not yet built.'
-        },
         'engine': {
             'function': ctags.engine,
             'description': 'Generate engine tags.'
@@ -20,7 +16,8 @@ def main(manager, args):
         },
         'update': {
             'function': ctags.update,
-            'description': 'Generate project tags and generate engine tags if it does not exist.'
+            'description': 'Generate project tags and generate engine tags '
+                           'if necessary.'
         },
         'engine-path': {
             'function': ctags.get_engine_path,
@@ -43,7 +40,8 @@ def main(manager, args):
 
     else:
 
-        # Determine the longest subcommand name so we can format our list in nice columns
+        # Determine the longest subcommand name so we can format our list in
+        # nice columns
         longestName = max([len(c) for c in SUBCOMMANDS])
         minSpaces = 6
 
