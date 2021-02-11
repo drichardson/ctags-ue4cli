@@ -1,14 +1,14 @@
 from os.path import abspath, dirname, join
-from setuptools import setup
+import setuptools
 
 # Read the README markdown data from README.md
 with open(abspath(join(dirname(__file__), 'README.md')), 'rb') as readmeFile:
     __readme__ = readmeFile.read().decode('utf-8')
 
-setup(
+setuptools.setup(
     name='ctags-ue4cli',
     version='0.0.2',
-    description='Generate tags file for Unreal Engine projects using Universal Ctags',
+    description='ctags plugin for ue4cli',
     long_description=__readme__,
     long_description_content_type='text/markdown',
     classifiers=[
@@ -21,11 +21,7 @@ setup(
     url='http://github.com/drichardson/ctags-ue4cli',
     author='Doug Richardson',
     author_email='doug@rekt.email',
-    packages=[
-        'ctags_ue4cli',
-        'ctags_ue4cli.commands'
-    ],
-    zip_safe=False,
+    packages=setuptools.find_packages(),
     python_requires='>=3.7',
     install_requires=[
         'setuptools',
