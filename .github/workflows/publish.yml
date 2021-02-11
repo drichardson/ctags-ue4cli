@@ -22,20 +22,18 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Installing Dependencies
       run: python -m pip install --upgrade build flake8
-    - name: Verify tag matches version in setup.py
+    - name: Verify git tag matches setup.py version
       run: |
         SETUP_PY_VERSION=$(python3 setup.py --version)
         TAG_VERSION=${GITHUB_REF#*tags/v}
         echo $SETUP_PY_VERSION to $TAG_VERSION from $GITHUB_REF
         if [[ $SETUP_PY_VERSION != $TAG_VERSION ]]; then
-          cat <<EOF
-          setup.py version does not match version tag.
-          setup.py version tag should have the format 0.0.1.
-          git version tag should have the format v0.1.1
-          EOF
+          echo setup.py version does not match version tag.
+          echo setup.py version tag should have the format 0.0.1.
+          echo git version tag should have the format v0.1.1
           exit 1
         else
-          echo setup.py version $SETUP_PY_VERSION matches $TAG_VERSION in
+          echo git tag matches setup.py
         fi
     - name: flake8 checks
       run: flake8 .  --count --show-source --statistics
