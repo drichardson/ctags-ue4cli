@@ -17,6 +17,10 @@ def main(manager, args):
         'project': {
             'function': ctags.project,
             'description': 'Generate project tags.'
+        },
+        'update': {
+            'function': ctags.update,
+            'description': 'Generate project tags and generate engine tags if it does not exist.'
         }
     }
 
@@ -48,3 +52,4 @@ def main(manager, args):
                 whitespace,
                 SUBCOMMANDS[subcommand]['description']
             ))
+        print('\nUse --verbose to get extra output.')

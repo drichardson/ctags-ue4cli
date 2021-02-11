@@ -9,14 +9,20 @@ def find_ctags():
         raise 'ctags not found. Install Universal Ctags. https://github.com/universal-ctags/ctags'
     return ctags
 
-def ctags(tags, basedir, tagtype):
-    print(f'Generating {tagtype} tags...')
-    print(f'tags={tags} basedir={basedir} tagtype={tagtype}')
+def verbose(argv):
+    return '--verbose' in argv
 
-    p = subprocess.run([find_ctags(), '-f', tags, '--languages=C,C++,C#', '--recurse', basedir])
+def ctags(tags, basedir, tagtype, argv):
+    args = [find_ctags(), '-f', tags, '--languages=C,C++,C#', '--recurse', basedir]
+
+    if verbose(argv):
+        print('running: {}'.format(' '.join(args)))
+
+    p = subprocess.run(args)
 
     if p.returncode == 0:
-        print(f'Done generating {tagtype} tags.')
+        if verbose(argv):
+            print(f'Done generating {tagtype} tags.')
     else:
         raise f'Error generating {tagtype} tags.'
 
@@ -25,19 +31,22 @@ def project(manager, argv):
     project_file = manager.getProjectDescriptor(os.getcwd())
     project_dir = os.path.dirname(project_file)
     tags = os.path.join(project_dir, 'tags')
-    engine = os.path.join(project_dir, 'Source')
-    ctags(tags, engine, 'project')
+    source = os.path.join(project_dir, 'Source')
+    ctags(tags, source, 'project', argv)
+
+def engine_tags(manager, argv):
+    return os.path.join(manager.getEngineRoot(), 'tags')
 
 def engine(manager, argv):
-    tags = os.path.join(manager.getEngineRoot(), 'tags')
-    engine = os.path.join(manager.getEngineRoot(), 'Engine')
-    ctags(tags, engine, 'engine')
+    source = os.path.join(manager.getEngineRoot(), 'Engine')
+    ctags(engine_tags(manager, argv), source, 'engine', argv)
 
 def update(manager, argv):
-
-    engine_tags_filename = os.path.join(manager.getEngineRoot(), 'tags2')
-
-    if not os.path.exists(engine_tags_filename):
-        print(f'{engine_tags_filename} does not exists. Generating.')
+    engine_tags_file = engine_tags(manager, argv)
+    if not os.path.exists(engine_tags_file):
+        engine(manager, argv)
     else:
-        print(f'{engine_tags_filename} exists. Skipping engine tags generation. Use --force to generate anyway')
+        if verbose(argv):
+            print(f'Will not generate engine tags because {engine_tags_file} exists.')
+
+    project(manager, argv)
