@@ -17,11 +17,15 @@ def verbose(argv):
 
 
 def ctags(tags, basedir, tagtype, argv):
+    # ctags options:
+    # https://docs.ctags.io/en/latest/man/ctags.1.html
     args = [
         find_ctags(),
         '-f', tags,
         '--languages=C,C++,C#',
-        '--recurse', basedir
+        '--recurse',
+        '--extras=+f', # also index file names
+        basedir
     ]
 
     if verbose(argv):
