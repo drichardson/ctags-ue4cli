@@ -24,7 +24,7 @@ def ctags(tags, basedir, tagtype, argv):
         '-f', tags,
         '--languages=C,C++,C#',
         '--recurse',
-        '--extras=+f', # also index file names
+        '--extras=+f',  # also index file names
         basedir
     ]
 
